@@ -1,5 +1,4 @@
-// Copyright 2020 NGR Softlab
-//
+// Copyright 2020-2024 NGR Softlab
 package crypter
 
 import (
@@ -9,6 +8,7 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"errors"
+	"fmt"
 	"io"
 	"strings"
 )
@@ -42,7 +42,7 @@ func UnPad(src []byte) ([]byte, error) {
 	unPadding := int(src[length-1])
 
 	if unPadding > length {
-		return nil, errors.New("unpad error. This could happen when incorrect encryption key is used")
+		return nil, errors.New("unpad error, this could happen when incorrect encryption key is used")
 	}
 
 	return src[:(length - unPadding)], nil
@@ -50,7 +50,7 @@ func UnPad(src []byte) ([]byte, error) {
 
 func Encrypt(key []byte, text string) (string, error) {
 	if text == "" {
-		return "", errors.New("code: 400, message: no password")
+		return "", errors.New("no password error")
 	}
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -72,7 +72,7 @@ func Encrypt(key []byte, text string) (string, error) {
 
 func Decrypt(key []byte, text string) (string, error) {
 	if text == "" {
-		return "", errors.New("code: 400, message: no password")
+		return "", errors.New("no password error")
 	}
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -130,7 +130,7 @@ func Decrypt2(key []byte, encMessage []byte) ([]byte, error) {
 	decodedBytes := make([]byte, len(encMessage))
 	n, err := base64.StdEncoding.Decode(decodedBytes, encMessage)
 	if err != nil {
-		return []byte(""), errors.New("BAD DECRYPT: " + err.Error())
+		return []byte(""), fmt.Errorf("bad decrypt: %s", err.Error())
 	}
 	bytesToDecrypt := decodedBytes[:n]
 
