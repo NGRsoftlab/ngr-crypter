@@ -1,5 +1,4 @@
-// Copyright 2020 NGR Softlab
-//
+// Copyright 2020-2024 NGR Softlab
 package crypter
 
 import (
@@ -7,7 +6,7 @@ import (
 	"testing"
 )
 
-/////////////////////////////////////////////////
+// ///////////////////////////////////////////////
 func TestEncrypt(t *testing.T) {
 	//t.Parallel()
 	text := "test sentence"
@@ -32,7 +31,7 @@ func TestEncrypt(t *testing.T) {
 	}
 }
 
-/////////////////////////////////////////////////
+// ///////////////////////////////////////////////
 func TestEncrypt_2(t *testing.T) {
 	//t.Parallel()
 	Etext := "bad sentence (not encrypted)"
@@ -44,7 +43,7 @@ func TestEncrypt_2(t *testing.T) {
 	}
 }
 
-/////////////////////////////////////////////////
+// ///////////////////////////////////////////////
 func TestEncrypt2(t *testing.T) {
 	//t.Parallel()
 	text := "test sentence"
